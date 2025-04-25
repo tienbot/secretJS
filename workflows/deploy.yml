@@ -21,3 +21,9 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
+      
+      - name: Debug check
+        run: |
+          echo "Check file content:"
+          cat script.js
+          echo "Secret value: ${{ secrets.MY_SECRET }}"
