@@ -10,9 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Inject secret
+      - name: Create new script with secret
         run: |
-          sed -i "s|%%SECRET_PLACEHOLDER%%|${{ secrets.MY_SECRET }}|g" script.js
+          echo "const MY_SECRET = '${{ secrets.MY_SECRET }}';" > temp.js
+          echo "console.log('test10');" >> temp.js
+          echo "console.log('Secret value:', MY_SECRET);" >> temp.js
+          mv temp.js script.js
           
       - name: Verify changes
         run: |
