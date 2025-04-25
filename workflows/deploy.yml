@@ -9,9 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Inject secret into JS file
+      
+      - name: Inject secret into JavaScript
         run: |
-          sed "s/%%SECRET_PLACEHOLDER%%/'${{ secrets.MY_SECRET }}'/g" script.template.js > script.js
+          # Создаем новый script.js, подставляя секрет
+          SECRET_VALUE="${{ secrets.MY_SECRET }}"
+          sed "s|%%SECRET_PLACEHOLDER%%|${SECRET_VALUE}|g" script.template.js > script.js
+          
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

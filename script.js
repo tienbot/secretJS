@@ -1,4 +1,4 @@
-console.log('test4');
+console.log('test6');
 
 // Этот файл будет использоваться как шаблон
 const MY_SECRET = '%%SECRET_PLACEHOLDER%%';
