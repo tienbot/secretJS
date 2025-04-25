@@ -10,21 +10,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Create script with secret
+      - name: Inject secret
         run: |
+          # Сохраняем оригинальный код (без секрета)
+          mv script.js script.original.js
+          # Создаем новый script.js с секретом
           echo "const MY_SECRET = '${{ secrets.MY_SECRET }}';" > script.js
-          echo "console.log('Secret value:', MY_SECRET);" >> script.js
-          # Добавьте остальной ваш код
-          cat your-main-code.js >> script.js
+          echo "console.log('Original test:');" >> script.js
+          cat script.original.js >> script.js
+          
+      - name: Verify changes
+        run: |
+          echo "Generated script.js content:"
+          cat script.js
           
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
-      
-      - name: Debug check
-        run: |
-          echo "Check file content:"
-          cat script.js
-          echo "Secret value: ${{ secrets.MY_SECRET }}"
