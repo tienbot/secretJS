@@ -12,12 +12,7 @@ jobs:
       
       - name: Inject secret
         run: |
-          # Сохраняем оригинальный код (без секрета)
-          mv script.js script.original.js
-          # Создаем новый script.js с секретом
-          echo "const MY_SECRET = '${{ secrets.MY_SECRET }}';" > script.js
-          echo "console.log('Original test:');" >> script.js
-          cat script.original.js >> script.js
+          sed -i "s|%%SECRET_PLACEHOLDER%%|${{ secrets.MY_SECRET }}|g" script.js
           
       - name: Verify changes
         run: |
