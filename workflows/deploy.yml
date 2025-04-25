@@ -10,11 +10,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Inject secret into JavaScript
+      - name: Create script with secret
         run: |
-          # Создаем новый script.js, подставляя секрет
-          SECRET_VALUE="${{ secrets.MY_SECRET }}"
-          sed "s|%%SECRET_PLACEHOLDER%%|${SECRET_VALUE}|g" script.template.js > script.js
+          echo "const MY_SECRET = '${{ secrets.MY_SECRET }}';" > script.js
+          echo "console.log('Secret value:', MY_SECRET);" >> script.js
+          # Добавьте остальной ваш код
+          cat your-main-code.js >> script.js
           
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
