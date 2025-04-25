@@ -1,2 +1,3 @@
-console.log('test10');
-console.log('Secret value:', MY_SECRET); // Используем объявленную выше переменную
+console.log('test12');
+const MY_SECRET = '%%SECRET_PLACEHOLDER%%'; // Добавьте эту строку
+console.log('Secret value:', MY_SECRET);
